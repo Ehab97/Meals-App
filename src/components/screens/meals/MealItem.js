@@ -1,29 +1,35 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, StyleSheet, Image, Pressable, Platform } from "react-native";
+import { colors } from "../../../utlis/colors";
 
 function MealItem({ item }) {
+  const navigate = useNavigation();
+
+  const pressHandler = () => {
+    navigate.navigate("MealDetails", { mealId: item.id });
+  };
+
+ 
   return (
     <View>
       <Pressable
         android_ripple={{ color: "#ccc" }}
-        style={({ pressed }) => [
-            styles.container,
-            pressed && styles.pressed,
-        ]}
-
+        style={({ pressed }) => [styles.container, pressed && styles.pressed]}
+        onPress={pressHandler}
       >
         <View style={styles.innerContainer}>
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: item.imageUrl }} />
-        </View>
-        <View style={styles.details}>
-          <Text style={styles.title}>{item.title}</Text>
-          <View style={styles.info}>
-            <Text style={styles.infoText}>{`${item.duration} min`}</Text>
-            <Text style={styles.infoText}>{item.complexity.toUpperCase()}</Text>
-            <Text style={styles.infoText}>{item.affordability.toUpperCase()}</Text>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={{ uri: item.imageUrl }} />
           </View>
-        </View>
+          <View style={styles.details}>
+            <Text style={styles.title}>{item.title}</Text>
+            <View style={styles.info}>
+              <Text style={styles.infoText}>{`${item.duration} min`}</Text>
+              <Text style={styles.infoText}>{item.complexity.toUpperCase()}</Text>
+              <Text style={styles.infoText}>{item.affordability.toUpperCase()}</Text>
+            </View>
+          </View>
         </View>
       </Pressable>
     </View>
@@ -37,7 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 5,
     shadowColor: "black",
-    shadowOpacity: 0.10,
+    shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 24,
     overflow: Platform.select({ android: "hidden", ios: "visible" }),
@@ -46,7 +52,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
   },
-  pressed:{
+  pressed: {
     backgroundColor: "#ccc",
   },
   imageContainer: {
