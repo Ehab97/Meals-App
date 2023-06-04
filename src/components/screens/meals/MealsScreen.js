@@ -4,6 +4,7 @@ import { useRoute } from "@react-navigation/native";
 
 import { CATEGORIES, MEALS } from "../../../utlis/data/dummy-data";
 import MealItem from "./MealItem";
+import { colors } from "../../../utlis/colors";
 
 function MealsScreen({ route, navigation }) {
   const [filteredMeals, setFilteredMeals] = React.useState([]);
@@ -21,7 +22,7 @@ function MealsScreen({ route, navigation }) {
     navigation.setOptions({
       title: title,
       headerStyle: {
-        backgroundColor: "#f4511e",
+        backgroundColor: colors.primary,
       },
     });
   }, [categoryId, navigation]);
