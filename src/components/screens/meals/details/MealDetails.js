@@ -1,14 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, Button } from "react-native";
 import { MEALS } from "../../../../utlis/data/dummy-data";
 import { colors } from "../../../../utlis/colors";
 import MealIngredient from "./MealIngredient";
 import MealSteps from "./MealSteps";
 import MealInfo from "./MealInfo";
+import IconButton from "../../../ui/IconButton";
 
 function MealDetails({ route, navigation }) {
   const [item, setItem] = React.useState(null);
   const { mealId } = route.params;
+
+
+  const addToFavorite = (id) => {};
+
   React.useEffect(() => {
     const meal = MEALS.find((meal) => meal.id === mealId);
     setItem(meal);
@@ -21,6 +26,15 @@ function MealDetails({ route, navigation }) {
       headerStyle: {
         backgroundColor: colors.primary,
       },
+      headerRight: () => (
+        <View style={{ flexDirection: "row" }}>
+         <IconButton
+          addFavorite={addToFavorite.bind(this, mealId)}
+          color="white"
+          icon="star"
+         />
+        </View>
+      )
     });
   }, [navigation, mealId]);
 
