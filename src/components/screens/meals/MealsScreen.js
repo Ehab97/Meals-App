@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
 import { CATEGORIES, MEALS } from "../../../utlis/data/dummy-data";
-import MealItem from "./MealItem";
+// import MealItem from "../../MealsList/MealItem";
 import { colors } from "../../../utlis/colors";
+import MealsList from "../../MealsList/MealsList";
 
 function MealsScreen({ route, navigation }) {
   const [filteredMeals, setFilteredMeals] = React.useState([]);
@@ -29,7 +30,7 @@ function MealsScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      {filteredMeals.length > 0 ? (
+      {/* {filteredMeals.length > 0 ? (
         <FlatList
           data={filteredMeals}
           renderItem={({ item }) => <MealItem item={item} />}
@@ -37,7 +38,10 @@ function MealsScreen({ route, navigation }) {
         />
       ) : (
         <Text>No meals found, maybe check your filters?</Text>
-      )}
+      )} */}
+      <MealsList meals={filteredMeals}
+      isFav={false}
+      />
     </View>
   );
 }

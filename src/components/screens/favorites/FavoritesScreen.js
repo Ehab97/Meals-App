@@ -1,9 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import {  Text, View } from "react-native";
 // import { useSelector } from 'react-redux';
-import MealItem from "../meals/MealItem";
 import { FavoritesContext } from "../../../store/context/favorites-context";
 import { MEALS } from "../../../utlis/data/dummy-data";
+import MealsList from "../../MealsList/MealsList";
 
 const FavoritesScreen = (props) => {
   //   const favoriteMeals = useSelector(state => state.meals.favoriteMeals);
@@ -23,15 +23,9 @@ const FavoritesScreen = (props) => {
     );
   }
 
- 
   return (
     <View style={styles.screen}>
-      <FlatList
-        data={favoriteMeals}
-        keyExtractor={(item, index) => item.id}
-        renderItem={({ item }) => <MealItem item={item} />}
-        style={{ width: "90%" }}
-      />
+      <MealsList meals={favoriteMeals} isFav={true} />
     </View>
   );
 };
@@ -39,24 +33,5 @@ const FavoritesScreen = (props) => {
 FavoritesScreen.navigationOptions = {
   headerTitle: "Your Favorites",
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    // fontFamily: "open-sans",
-    fontSize: 16,
-    textAlign: "center",
-    color: "grey",
-  },
-});
 
 export default FavoritesScreen;

@@ -1,16 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, StyleSheet, Image, Pressable, Platform } from "react-native";
-import { colors } from "../../../utlis/colors";
 
 function MealItem({ item }) {
   const navigate = useNavigation();
-
   const pressHandler = () => {
     navigate.navigate("MealDetails", { mealId: item.id });
   };
 
- 
   return (
     <View>
       <Pressable
