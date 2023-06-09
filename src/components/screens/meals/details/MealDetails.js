@@ -6,13 +6,22 @@ import MealIngredient from "./MealIngredient";
 import MealSteps from "./MealSteps";
 import MealInfo from "./MealInfo";
 import IconButton from "../../../ui/IconButton";
+import { FavoritesContext } from "../../../../store/context/favorites-context";
 
 function MealDetails({ route, navigation }) {
   const [item, setItem] = React.useState(null);
   const { mealId } = route.params;
+  const favoritesMealsCTX=React.useContext(FavoritesContext);
 
+  const isMealFavorite=favoritesMealsCTX.ids.includes(mealId);
 
-  const addToFavorite = (id) => {};
+  const handleChangeFavoriteStatus = (id) => {
+    if(isMealFavorite){
+      favoritesMealsCTX.removeFavorite(id);
+    }else{
+      favoritesMealsCTX.addFavorite(id)
+    }
+  };
 
   React.useEffect(() => {
     const meal = MEALS.find((meal) => meal.id === mealId);
@@ -29,14 +38,14 @@ function MealDetails({ route, navigation }) {
       headerRight: () => (
         <View style={{ flexDirection: "row" }}>
          <IconButton
-          addFavorite={addToFavorite.bind(this, mealId)}
+          addFavorite={handleChangeFavoriteStatus.bind(this, mealId)}
           color="white"
-          icon="star"
+          icon={isMealFavorite?'star':'star-outline'}
          />
         </View>
       )
     });
-  }, [navigation, mealId]);
+  }, [navigation, mealId,handleChangeFavoriteStatus]);
 
   return (
     <ScrollView style={styles.container}>
